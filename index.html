@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudScale Lab</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <div><h1>CloudScale Lab</h1><p>See how the cloud handles busy and quiet days</p></div>
+  <div class="tools">
+    <span id="status" class="pill ok">Healthy</span>
+    <button id="demo" class="tbtn">Run demo</button>
+    <a class="tbtn" href="/api/report.csv">Download report</a>
+    <button id="theme" class="tbtn">Dark mode</button>
+  </div>
+</header>
+<div id="caption" class="caption" hidden></div>
+
+<main>
+  <section class="kpis">
+    <div class="card kpi"><span>Customers arriving <i class="q" data-tip="Requests per second reaching the website.">?</i></span><b id="k-rps">0</b></div>
+    <div class="card kpi"><span>Servers running <i class="q" data-tip="Each server is like a billing counter that serves customers.">?</i></span><b id="k-srv">0</b></div>
+    <div class="card kpi"><span>Server workload <i class="q" data-tip="Average CPU use. Above 70% a new server is added.">?</i></span><b id="k-cpu">0%</b></div>
+    <div class="card kpi"><span>Waiting time <i class="q" data-tip="How long a customer waits for a reply. Higher workload means slower.">?</i></span><b id="k-lat">0 ms</b></div>
+    <div class="card kpi"><span>Cost per hour <i class="q" data-tip="Running servers x $0.10 (simulated price).">?</i></span><b id="k-cost">$0.00</b></div>
+  </section>
+
+  <div class="layout">
+    <aside class="card controls">
+      <h2>Controls</h2>
+      <label>Real-life scenario <i class="q" data-tip="One click sets a realistic amount of traffic.">?</i></label>
+      <div class="scen">
+        <button class="btn" data-s="normal">Normal day</button>
+        <button class="btn" data-s="flash_sale">Flash sale</button>
+        <button class="btn" data-s="exam_result">Exam result day</button>
+        <button class="btn" data-s="night">Night time</button>
+      </div>
+      <label for="traffic">Customers arriving <b id="t-out">120 req/s</b></label>
+      <input type="range" id="traffic" min="20" max="800" step="10" value="120">
+      <div class="btns">
+        <button id="spike" class="btn primary">Traffic spike</button>
+        <button id="kill" class="btn danger">Kill a server</button>
+      </div>
+      <label for="algo">Load balancing method <i class="q" data-tip="Round robin: servers take turns. Least connections: the least busy server gets the next request.">?</i></label>
+      <select id="algo">
+        <option value="round_robin">Round robin</option>
+        <option value="least_connections">Least connections</option>
+      </select>
+      <label class="check"><input type="checkbox" id="auto" checked> Auto-scaling on</label>
+      <p class="hint" id="rules"></p>
+      <div class="cost">
+        <span>Fixed 6 servers</span><b id="c-fixed">$0.60 / hr</b>
+        <span>With auto-scaling</span><b id="c-now">$0.20 / hr</b>
+        <span>You are saving</span><b id="c-save" class="green">0%</b>
+      </div>
+      <button id="reset" class="btn">Reset simulation</button>
+      <p id="msg" class="hint"></p>
+    </aside>
+
+    <section class="right">
+      <div class="card"><h2>Servers</h2><div id="servers" class="servers"></div></div>
+
+      <div class="card">
+        <h2>With and without auto-scaling</h2>
+        <div id="compare" class="compare"></div>
+        <p id="c-totals" class="totals"></p>
+        <p class="hint">Cost assumes 1 second = 1 minute of real time.</p>
+      </div>
+
+      <div class="charts">
+        <div class="card"><h3>Customers arriving per second</h3><canvas id="c1"></canvas></div>
+        <div class="card"><h3>Server workload (%)</h3><canvas id="c2"></canvas></div>
+        <div class="card"><h3>Servers running</h3><canvas id="c3"></canvas></div>
+        <div class="card"><h3>Total bill ($): blue = auto-scaling, dashed = fixed 6</h3><canvas id="c4"></canvas></div>
+      </div>
+
+      <div class="card"><h2>What happened</h2><ul id="log" class="log"></ul></div>
+    </section>
+  </div>
+
+  <section class="card how">
+    <h2>How to read this dashboard</h2>
+    <p>Think of a shop with billing counters. Customers are the traffic and counters are the servers. The <b>load balancer</b> shares customers between counters. The <b>auto-scaler</b> opens a new counter when it gets crowded and closes one when it is quiet. <b>Self-healing</b> replaces a counter that breaks. Press <b>Run demo</b> to watch the whole story.</p>
+  </section>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

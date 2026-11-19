@@ -1,259 +1,60 @@
-# Cloud-Computing-Pedagogical-Initiatives-2026-2027
-# ☁️ CloudScale Lab – Load Balancer and Auto-Scaling Simulator
+# CloudScale Lab - Load Balancer and Auto-Scaling Simulator
 
-A Cloud Computing Simulation Platform demonstrating Load Balancing, Auto-Scaling, Self-Healing, Performance Monitoring, and Cost Optimization.
+A live dashboard that shows how cloud infrastructure handles changing traffic:
+load balancing, auto-scaling, self-healing and pay-as-you-go cost.
 
-**Cloud Computing Mini Project | Academic Year 2026–2027**
+**Honest note:** servers are simulated in Python. No AWS/Azure/GCP account is needed.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Flask](https://img.shields.io/badge/Backend-Flask-black)
-![SQLite](https://img.shields.io/badge/Database-SQLite-blue)
-![HTML](https://img.shields.io/badge/Frontend-HTML-orange)
-![CSS](https://img.shields.io/badge/Styling-CSS-blue)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+## Run on Windows (easy way)
+Double-click `run.bat`  (or run `run.bat` in the VS Code terminal).
+Then open http://127.0.0.1:5000
 
-**Features • Technology Stack • Project Structure • Setup • Workflow • Future Scope**
-
----
-
-## 👥 Created By
-
-| Roll No. | Name |
-|---|---|
-| 121 | Kasralikar Mrudula |
-| 138 | Bhagyashri Sontakke |
-| 144 | Shaikh Sidra Sareen |
-| 154 | Ketaki Gundewar |
-| 159 | Tejsvini Kaulwar |
-
-**Project Guide:** Dr. S. Y. Gaikwad
-
-## 📑 Table of Contents
-
-- About the Project
-- Objectives
-- Key Features
-- Load Balancing Algorithms
-- Auto-Scaling Mechanism
-- Technology Stack
-- Directory Structure
-- System Workflow
-- Project Setup
-- Benefits
-- Limitations
-- Future Scope
-- Project Team
-
-## 📖 About the Project
-
-CloudScale Lab is a Cloud Computing simulation project designed to demonstrate how cloud infrastructure manages dynamic workloads through intelligent resource management.
-
-The project provides an interactive dashboard that simulates incoming traffic, distributes requests across multiple virtual servers, monitors CPU utilization, automatically adjusts server capacity, and demonstrates server failure recovery.
-
-It also compares Auto-Scaling infrastructure with fixed-server infrastructure to demonstrate resource utilization and cost optimization.
-
-**Note:** CloudScale Lab is a simulation-based project. It demonstrates cloud computing concepts using virtual server simulations rather than deploying actual cloud infrastructure.
-
-## 🎯 Objectives
-
-- Understand the working of cloud load balancing.
-- Demonstrate automatic server scaling based on workload.
-- Simulate server failure detection and self-healing.
-- Monitor server performance and traffic distribution.
-- Analyze infrastructure resource utilization.
-- Compare auto-scaling and fixed-server costs.
-
-## 🌟 Key Features
-
-### ⚖️ Load Balancing
-
-- Round Robin Algorithm: Distributes incoming requests sequentially among available servers.
-- Least Connections Algorithm: Assigns requests to the server with the lowest number of active connections.
-- Distributes simulated traffic across virtual servers.
-
-### 📈 Auto-Scaling
-
-- Automatic Scale-Out: Adds servers when CPU utilization exceeds the configured threshold.
-- Automatic Scale-In: Removes extra servers when workload decreases.
-- Configurable minimum and maximum server limits.
-- Cooldown mechanism to control scaling frequency.
-
-### 🛡️ Self-Healing
-
-- Simulates virtual server failures.
-- Detects failed server conditions.
-- Demonstrates automatic server replacement and recovery.
-
-### 📊 Performance Monitoring Dashboard
-
-- CPU utilization monitoring.
-- Server status and availability.
-- Traffic distribution visualization.
-- Response latency monitoring.
-- Live dashboard updates.
-
-### 🚦 Traffic Simulation
-
-Supports different traffic scenarios:
-
-- Normal Day
-- Flash Sale
-- Exam Result Day
-- Night Time
-
-### 💰 Cost Comparison
-
-- Compares auto-scaling and fixed-server configurations.
-- Displays infrastructure cost estimates.
-- Demonstrates potential resource savings through dynamic scaling.
-
-### 📁 Reporting
-
-- CSV report generation.
-- Simulation performance data.
-- Cost comparison information.
-
-## 🧠 Load Balancing Algorithms
-
-| Algorithm | Description |
-|---|---|
-| Round Robin | Distributes requests sequentially among servers. |
-| Least Connections | Selects the server with the fewest active connections. |
-
-## ⚙️ Auto-Scaling Mechanism
-
-The simulator uses CPU utilization thresholds to demonstrate automatic resource management.
-
-| Parameter | Configuration |
-|---|---|
-| Scale-Out Threshold | Above 70% CPU |
-| Scale-In Threshold | Below 30% CPU |
-| Minimum Servers | 2 |
-| Maximum Servers | 8 |
-| Cooldown Period | 2 seconds (simulated) |
-
-## 🛠️ Technology Stack
-
-| Layer | Technologies |
-|---|---|
-| Backend | Python, Flask |
-| Frontend | HTML, CSS, JavaScript |
-| Database | SQLite |
-| Server Framework | Flask |
-| Simulation | Python-based server and traffic simulation |
-
-## 📁 Directory Structure
-
-```text
-CloudScaleLab/
-│
-├── app.py
-│
-├── requirements.txt
-│
-├── run.bat
-│
-├── templates/
-│   └── index.html
-│
-└── static/
-    ├── app.js
-    └── style.css
+## Run manually (cmd / PowerShell)
 ```
-
-## 🔄 System Workflow
-
-1. User selects a traffic simulation scenario.
-2. Incoming requests are generated.
-3. The load balancer distributes requests among available virtual servers.
-4. CPU utilization and server workload are monitored.
-5. The auto-scaling mechanism checks predefined CPU thresholds.
-6. Servers are added or removed according to workload.
-7. Server failure and self-healing are demonstrated.
-8. Dashboard displays performance metrics and cost comparisons.
-
-## 🚀 Project Setup
-
-### Prerequisites
-
-- Python 3.x
-- pip
-- Visual Studio Code (recommended)
-- Web Browser
-
-### 1. Extract the Project
-
-Download and extract the `CloudScaleLab` project ZIP file.
-
-### 2. Open in VS Code
-
-Open the extracted project folder in Visual Studio Code.
-
-### 3. Install Dependencies
-
-Open the terminal and execute:
-
-```bash
+py -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### 4. Run the Application
-
-Execute the following command:
-
-```bash
 python app.py
 ```
+Open http://127.0.0.1:5000  (stop with Ctrl + C)
 
-Alternatively, run the `run.bat` file on Windows.
+## Demo flow (2-3 minutes)
+1. Start: 2 servers, healthy, low CPU.
+2. Click **Traffic spike**: CPU rises, new servers are added automatically.
+3. Click **Kill a server**: traffic is rerouted, then the server is replaced (self-healing).
+4. Switch **Round robin** to **Least connections**: server CPU bars become more even.
+5. Drag the traffic slider down: servers are removed, cost falls.
+6. Show the **You are saving** percentage against a fixed 6-server setup.
 
-### 5. Open the Dashboard
+## How it works
+- Every second the backend simulates one tick: traffic is split across healthy servers.
+- One server handles 100 req/s, so CPU % = requests / 100.
+- Auto-scaler: average CPU above 70% adds a server; below 30% removes one (2 to 8 servers, 2 s cooldown).
+- Round robin uses uneven request sizes; least connections balances them.
+- Response time rises sharply as CPU approaches 100%.
+- Cost = running servers x $0.10 per hour (simulated price).
+- SQLite (`cloudscale.db`) stores the event log. The browser polls `/api/state` every second.
 
-Open your browser and visit:
-
-```text
-http://127.0.0.1:5000
+## Project structure
+```
+app.py              Flask backend + simulation engine + REST API
+templates/index.html  Dashboard page
+static/style.css    Styling
+static/app.js       Live updates and charts (no external libraries)
+run.bat             One-click setup and start (Windows)
 ```
 
-The CloudScale Lab dashboard will be accessible locally.
+## API
+GET /api/state | POST /api/traffic, /api/spike, /api/kill, /api/algo, /api/autoscale, /api/reset
 
-## 💡 Benefits
+## Limitations and future scope
+- Simulation only; replace virtual servers with AWS EC2 (boto3) and a real Elastic Load Balancer.
+- Add user login, scheduled traffic patterns and CloudWatch-style alarms.
 
-- Provides practical understanding of cloud computing concepts.
-- Demonstrates efficient traffic distribution.
-- Explains dynamic resource allocation.
-- Demonstrates server failure recovery concepts.
-- Helps understand infrastructure cost optimization.
-- Provides an interactive learning environment.
-
-## ⚠️ Limitations
-
-- Uses simulated virtual servers instead of actual cloud servers.
-- Does not directly deploy infrastructure on AWS, Azure, or Google Cloud.
-- Performance metrics are simulation-based.
-- Actual cloud networking, billing, and production security are outside the current implementation scope.
-
-## 🔮 Future Scope
-
-- Integration with AWS EC2 instances.
-- Implementation of actual cloud load balancers.
-- Integration with cloud monitoring services.
-- Advanced workload prediction.
-- Real cloud deployment and resource management.
-- Enhanced monitoring and analytics.
-
-## 🎓 Academic Information
-
-**Project Title:** CloudScale Lab – Load Balancer and Auto-Scaling Simulator
-
-**Project Type:** Cloud Computing Mini Project
-
-**Academic Year:** 2026–2027
-
-**Institution:** MGM's College of Engineering, Nanded
-
-**Project Guide:** Dr. S. Y. Gaikwad
-
----
-
-**CloudScale Lab – Simulating Intelligent Cloud Resource Management.**
+## New in version 2
+- **Run demo**: plays the full story automatically with captions (normal, spike, crash, recovery, calm).
+- **Real-life scenarios**: Normal day, Flash sale, Exam result day, Night time.
+- **With and without auto-scaling**: compares against a fixed 2-server setup (requests lost, waiting time).
+- **Total bill**: running cost vs a fixed 6-server setup (1 second = 1 simulated minute).
+- **Download report**: CSV with peak traffic, servers used, failures, cost, requests lost and the event log.
+- **Plain-English labels, (?) tooltips and dark mode.**
